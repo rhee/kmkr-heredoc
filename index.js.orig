@@ -1,0 +1,24 @@
+;(function(){
+  var
+  namespace,
+  fs = require('fs');
+
+  eval(fs.readFileSync('./node_modules/kmkr-heredoc/kmkr-heredoc-lib/heredoc.js','utf8'));
+
+  //// Where to export the API                                                                                                                                                         
+  var namespace;
+
+  // CommonJS / Node module                                                                                                                                                            
+  if (typeof module !== 'undefined') {
+    namespace = module.exports = heredoc;
+  }
+
+  // Browsers and other environments                                                                                                                                                   
+  else {
+    // Get the global object. Works in ES3, ES5, and ES5 strict mode.                                                                                                                  
+    namespace = (function(){ return this || (1,eval)('this') }());
+  }
+
+  namespace.heredoc = heredoc ;
+
+}());
