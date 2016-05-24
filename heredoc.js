@@ -14,19 +14,19 @@
 
   if (('undefined' !== typeof module) && module.exports) {
     // Publish as node.js module
-    module.exports = uuid;
+    module.exports = heredoc;
   } else if (typeof define === 'function' && define.amd) {
     // Publish as AMD module
-    define(function() {return uuid;});
+    define(function() {return heredoc;});
   } else {
     // Publish as global (in browsers)
-    _previousRoot = _window.uuid;
-    // **`noConflict()` - (browser only) to reset global 'uuid' var**
-    uuid.noConflict = function() {
-      _window.uuid = _previousRoot;
-      return uuid;
+    _previousRoot = _window.heredoc;
+    // **`noConflict()` - (browser only) to reset global 'heredoc' var**
+    heredoc.noConflict = function() {
+      _window.heredoc = _previousRoot;
+      return heredoc;
     };
-    _window.uuid = uuid;
+    _window.heredoc = heredoc;
   }
 
 })('undefined' !== typeof window ? window : null);
