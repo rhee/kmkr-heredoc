@@ -1,16 +1,23 @@
 (function(_window){
   'use strict';
 
-  function heredoc(f,begintag,endtag){
+  function heredoc(f,begintag,endtag,debug){
     // begintag = begintag || "{{{";
     // endtag = endtag || "}}}";
     // var reobj = new RegExp("/\\*"+begintag+"\\n[\\s\\S]*?"+endtag+"\\*/", "m");
     // str = reobj.exec(f).toString();
     // str = str.replace(new RegExp("/\\*"+begintag+"\\n",'m'),'').toString();
     // return str.replace(new RegExp(""+endtag+"\\*/",'m'),'').toString();
-    begintag = begintag || '/\\*{{{\\n';
-    endtag = endtag || '\\n\\s*}}}\\*/';
-    var m = new RegExp(begintag+'([\\s\\S]*?)'+endtag, 'm').exec(f);
+    begintag = begintag || '/\\*\\**(?:[\\s\\*]*\\s@preserve\\s*)?{{{\\n';
+    endtag = endtag || '\\n\\s*}}}\\s*\\*/';
+    var expr = begintag+'([\\s\\S]*?)'+endtag,
+        m = new RegExp(expr, 'm').exec(f);
+    if (debug) {
+	console.info('heredoc trace:');
+	console.info('    expr:',expr);
+	console.info('    input:',JSON.stringify(f.toString()));
+	console.info('    match:',m);
+    }
     return m ? m[1] : '';
   }
 
